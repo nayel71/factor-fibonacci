@@ -1,12 +1,12 @@
-def isprime(p):
+def is_prime(p):
     if p < 2:
         return False
 
-    x = 2
-    while x * x < p:
-        if p % x == 0:
+    divisor = 2
+    while divisor * divisor < p:
+        if p % divisor == 0:
             return False
-        x += 1
+        divisor += 1 + divisor % 2
 
     return True
 
@@ -19,7 +19,7 @@ def fibonacci(n):
     return cur
 
 def factor_fibonacci(p):
-    if not isprime(p):
+    if not is_prime(p):
         print(p, "is not prime")
         return
 
@@ -29,10 +29,10 @@ def factor_fibonacci(p):
     diff = 4 * p
 
     while can2 * can2 <= fibp:
-        if ((can2 % 10 == 3) or (can2 % 10 == 7)) and fibp % can2 == 0 and isprime(can2):
+        if ((can2 % 10 == 3) or (can2 % 10 == 7)) and fibp % can2 == 0 and is_prime(can2):
             print("The least prime factor of Fibonacci(", p, ") =", fibp, "is", can2)
             return
-        if ((can1 % 10 == 1) or (can1 % 10 == 9)) and fibp % can1 == 0 and isprime(can1):
+        if ((can1 % 10 == 1) or (can1 % 10 == 9)) and fibp % can1 == 0 and is_prime(can1):
             print("The least prime factor of Fibonacci(", p, ") =", fibp, "is", can1)
             return
 
