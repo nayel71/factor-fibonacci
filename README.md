@@ -1,4 +1,4 @@
-# Testing Primality of Fibonacci Numbers with Prime Index
+# Primality of Fibonacci Numbers with Prime Index
 
 It is not hard to see that Fibonacci numbers with composite index are composite. The converse, however, is false. This program will find the least prime factor of a Fibonacci number with prime index.
 
