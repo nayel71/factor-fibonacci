@@ -1,6 +1,6 @@
-# Primality of Fibonacci Numbers with Prime Index
+# Prime Factors of Fibonacci Numbers with Prime Index
 
-It is not hard to see that Fibonacci numbers with composite index are composite. The converse, however, is false. This program will find the least prime factor of a Fibonacci number with prime index.
+It is not hard to see that Fibonacci numbers with composite index greater than 4 are composite. The converse, however, is false. This program can find the least prime factor and the prime factorisation (slow for large index) of Fibonacci numbers with prime index.
 
 ## Algorithm
 
