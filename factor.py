@@ -24,59 +24,70 @@ class Fibonacci:
 
 
     def least_prime_factor(self):
-        pr1 = 4*self._index + 1
-        pr2 = 2*self._index - 1
-        dif = 4*self._index
+        p = self._index
 
-        while pr2 * pr2 <= self._value:
-            if ((pr2 % 10 == 3) or (pr2 % 10 == 7)) and self._value % pr2 == 0:
-                return pr2
-            elif ((pr1 % 10 == 1) or (pr1 % 10 == 9)) and self._value % pr1 == 0:
-                return pr1
-            else:
-                pr1 += dif
-                pr2 += dif
+        if p > 2:
+            dif = 4 * p
+            pr1 = 4*p + 1
+            pr2 = 2*p - 1
 
-        return self._value
+            while pr2 * pr2 <= self._value:
+                if ((pr2 % 10 == 3) or (pr2 % 10 == 7)) and self._value % pr2 == 0:
+                    return pr2
+                elif ((pr1 % 10 == 1) or (pr1 % 10 == 9)) and self._value % pr1 == 0:
+                    return pr1
+                else:
+                    pr1 += dif
+                    pr2 += dif
+
+            return self._value
 
 
     def prime_factorisation(self):
-        if self._index < 6:
-            return [self._value]
-
-        pr1 = 4*self._index + 1
-        pr2 = 2*self._index - 1
-        dif = 4*self._index
-        val = self._value
+        p = self._index
         fac = []
 
-        while val >= pr2:
-            if ((pr2 % 10 == 3) or (pr2 % 10 == 7)) and val % pr2 == 0:
-                fac.append(pr2)
-                val /= pr2
-            elif ((pr1 % 10 == 1) or (pr1 % 10 == 9)) and val % pr1 == 0:
-                fac.append(pr1)
-                val /= pr1
-            else:
-                pr1 += dif
-                pr2 += dif
+        if p > 2:
+            lpf = self.least_prime_factor()
+            fac.append(lpf)
+            val = self._value / lpf
+            dif = 4 * p
+
+            if lpf % p == 1:            # lpf is of the form 4tp + 1
+                pr1 = lpf
+                pr2 = lpf + 2*p - 2
+            else:                       # lpf is of the form (4t - 2)p - 1
+                pr1 = lpf + 2*p + 2
+                pr2 = lpf
+
+            if p > 5:
+                while val >= lpf:
+                    if ((pr2 % 10 == 3) or (pr2 % 10 == 7)) and val % pr2 == 0:
+                        fac.append(pr2)
+                        val /= pr2
+                    elif ((pr1 % 10 == 1) or (pr1 % 10 == 9)) and val % pr1 == 0:
+                        fac.append(pr1)
+                        val /= pr1
+                    else:
+                        pr1 += dif
+                        pr2 += dif
 
         return fac
 
 
 #fib = Fibonacci(31)
 #fib = Fibonacci(37)
-fib = Fibonacci(41)
+#fib = Fibonacci(41)
 #fib = Fibonacci(43)
 #fib = Fibonacci(71)
-#fib = Fibonacci(81)
+#fib = Fibonacci(81) # not prime
+#fib = Fibonacci(83)
 
 # prime_factorisation() may be slow for the following
-#fib = Fibonacci(83)
 #fib = Fibonacci(89)
-#fib = Fibonacci(91)
+#fib = Fibonacci(91) # not prime
 #fib = Fibonacci(97)
-#fib = Fibonacci(101) # this has large prime factors
+fib = Fibonacci(101) # this has large prime factors
 #fib = Fibonacci(103)
 #fib = Fibonacci(107)
 #fib = Fibonacci(109)
