@@ -50,7 +50,7 @@ class Fibonacci:
         if p > 2:
             lpf = self.least_prime_factor()
             fac.append(lpf)
-            val = self._value / lpf
+            val = self._value // lpf
             dif = 4 * p
 
             if lpf % p == 1:            # lpf is of the form 4tp + 1
@@ -64,13 +64,17 @@ class Fibonacci:
                 while val >= lpf:
                     if ((pr2 % 10 == 3) or (pr2 % 10 == 7)) and val % pr2 == 0:
                         fac.append(pr2)
-                        val /= pr2
+                        val //= pr2
                     elif ((pr1 % 10 == 1) or (pr1 % 10 == 9)) and val % pr1 == 0:
                         fac.append(pr1)
-                        val /= pr1
+                        val //= pr1
                     else:
                         pr1 += dif
                         pr2 += dif
+
+                        if pr1 * pr1 > val and pr2 * pr2 > val: # val is prime
+                            fac.append(val)
+                            break
 
         return fac
 
@@ -80,18 +84,16 @@ class Fibonacci:
 #fib = Fibonacci(41)
 #fib = Fibonacci(43)
 #fib = Fibonacci(71)
-#fib = Fibonacci(81) # not prime
+#fib = Fibonacci(81)  # not prime
 #fib = Fibonacci(83)
-
-# prime_factorisation() may be slow for the following
 #fib = Fibonacci(89)
-#fib = Fibonacci(91) # not prime
+#fib = Fibonacci(91)  # not prime
 #fib = Fibonacci(97)
-fib = Fibonacci(101) # this has large prime factors
+#fib = Fibonacci(101) # this has large prime factors
 #fib = Fibonacci(103)
 #fib = Fibonacci(107)
 #fib = Fibonacci(109)
-#fib = Fibonacci(113)
+fib = Fibonacci(113)  # this has a very large prime factor
 #fib = Fibonacci(119)
 #fib = Fibonacci(127)
 #fib = Fibonacci(227)
