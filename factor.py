@@ -50,7 +50,7 @@ class Fibonacci:
         if p > 2:
             lpf = self.least_prime_factor()
             fac.append(lpf)
-            val = self._value // lpf
+            quo = self._value // lpf
             dif = 4 * p
 
             if lpf % p == 1:            # lpf is of the form 4tp + 1
@@ -61,20 +61,19 @@ class Fibonacci:
                 pr2 = lpf
 
             if p > 5:
-                while val >= lpf:
-                    if ((pr2 % 10 == 3) or (pr2 % 10 == 7)) and val % pr2 == 0:
+                while pr1 * pr1 <= quo and pr2 * pr2 <= quo:
+                    if ((pr2 % 10 == 3) or (pr2 % 10 == 7)) and quo % pr2 == 0:
                         fac.append(pr2)
-                        val //= pr2
-                    elif ((pr1 % 10 == 1) or (pr1 % 10 == 9)) and val % pr1 == 0:
+                        quo //= pr2
+                    elif ((pr1 % 10 == 1) or (pr1 % 10 == 9)) and quo % pr1 == 0:
                         fac.append(pr1)
-                        val //= pr1
+                        quo //= pr1
                     else:
                         pr1 += dif
                         pr2 += dif
 
-                        if pr1 * pr1 > val and pr2 * pr2 > val: # val is prime
-                            fac.append(val)
-                            break
+                if quo > 1:             # quo is prime
+                    fac.append(quo)
 
         return fac
 
@@ -82,20 +81,20 @@ class Fibonacci:
 #fib = Fibonacci(31)
 #fib = Fibonacci(37)
 #fib = Fibonacci(41)
-#fib = Fibonacci(43)
+#fib = Fibonacci(43) # prime
 #fib = Fibonacci(71)
-#fib = Fibonacci(81)  # not prime
-#fib = Fibonacci(83)
+#fib = Fibonacci(83) # prime
 #fib = Fibonacci(89)
-#fib = Fibonacci(91)  # not prime
 #fib = Fibonacci(97)
-#fib = Fibonacci(101) # this has large prime factors
+fib = Fibonacci(101) # large prime factors
 #fib = Fibonacci(103)
 #fib = Fibonacci(107)
-#fib = Fibonacci(109)
-fib = Fibonacci(113)  # this has a very large prime factor
-#fib = Fibonacci(119)
-#fib = Fibonacci(127)
+#fib = Fibonacci(109) # large prime factors
+#fib = Fibonacci(113) # very large prime factor
+#fib = Fibonacci(119) # exception
+#fib = Fibonacci(127) # very large prime factor
+
+# prime_factorisation() may be slow for the following
 #fib = Fibonacci(227)
 #fib = Fibonacci(503)
 #fib = Fibonacci(907)
