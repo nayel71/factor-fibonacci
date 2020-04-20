@@ -61,7 +61,7 @@ class Fibonacci:
                 pr2 = lpf
 
             if p > 5:
-                while pr1 * pr1 <= quo and pr2 * pr2 <= quo:
+                while pr1 * pr1 <= quo or pr2 * pr2 <= quo:
                     if ((pr2 % 10 == 3) or (pr2 % 10 == 7)) and quo % pr2 == 0:
                         fac.append(pr2)
                         quo //= pr2
