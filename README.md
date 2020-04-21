@@ -4,7 +4,7 @@ These are programs for studying some number-theoretic properties of Fibonacci nu
 
 ## Number Theory (`nt.py`)
 
-A module containing some standard number-theoretic functions.
+This module contains some standard number-theoretic functions.
 
 ## Pisano Period (`pisano.py`)
 
@@ -12,10 +12,10 @@ The Fibonacci sequence modulo `n` is periodic. The period is known as the *Pisan
 
 ## Fibonacci Numbers with Prime Index (`fibonacci_prime.py`)
 
-Fibonacci numbers with composite index greater than 4 are composite [[2]](#2). The converse however is false. This program can find the least prime factor and the prime factorisation (slow for large index) of Fibonacci numbers with prime index [[1]](#1).
+Fibonacci numbers with composite index greater than 4 are composite [[2]](#2). The converse however is false. This program can find the least prime factor and the prime factorisation (slow for large index) of Fibonacci numbers with prime index [[2]](#2).
 
 ## References
 
-<a id="1">[1]</a> [On Fibonacci Numbers with Prime Index](https://sriasat.files.wordpress.com/2012/12/fibonacci31.pdf)
+<a id="1">[1]</a> [Z[phi] and the Fibonacci Sequence Modulo n](https://sriasat.files.wordpress.com/2012/12/fibonacci31.pdf)
 
-<a id="2">[2]</a> [Z[phi] and the Fibonacci Sequence Modulo n](https://sriasat.files.wordpress.com/2012/12/fibonacci31.pdf)
+<a id="2">[2]</a> [On Fibonacci Numbers with Prime Index](https://sriasat.files.wordpress.com/2012/12/fibonacci31.pdf)
