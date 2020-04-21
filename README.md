@@ -16,6 +16,6 @@ Fibonacci numbers with composite index greater than 4 are composite [[2]](#2). T
 
 ## References
 
-<a id="1">[1]</a> [Z[phi] and the Fibonacci Sequence Modulo n](https://sriasat.files.wordpress.com/2012/12/fibonacci31.pdf)
+<a id="1">[1]</a> [Z[phi] and the Fibonacci Sequence Modulo n](https://sriasat.files.wordpress.com/2012/12/fibonacci13.pdf)
 
 <a id="2">[2]</a> [On Fibonacci Numbers with Prime Index](https://sriasat.files.wordpress.com/2012/12/fibonacci31.pdf)
