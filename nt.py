@@ -5,7 +5,6 @@ def is_prime(p):
         return False
 
     d = 2
-    
     while d * d <= p:
         if p % d == 0:
             return False

@@ -12,7 +12,7 @@ The Fibonacci sequence modulo `n` is periodic. The period is known as the *Pisan
 
 ## Fibonacci Numbers with Prime Index (`fibonacci_prime.py`)
 
-Fibonacci numbers with composite index greater than 4 are composite [[2]](#2). The converse however is false. This program can find the least prime factor and the prime factorisation (slow for large index) of Fibonacci numbers with prime index [[2]](#2).
+Fibonacci numbers with composite index greater than 4 are composite [[1]](#1). The converse however is false. This program can find the least prime factor and the prime factorisation (slow for large index) of Fibonacci numbers with prime index [[2]](#2).
 
 ## References
 

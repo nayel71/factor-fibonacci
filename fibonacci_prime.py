@@ -12,6 +12,10 @@ class Fibonacci:
             prev, self._value = self._value, prev + self._value
 
 
+    def __str__(self):
+        return "Fibonacci( " + str(self._index) + " ) = " + str(self._value)
+
+
     def least_prime_factor(self):
         p = self._index
 
@@ -67,30 +71,16 @@ class Fibonacci:
         return fac
 
 
-#fib = Fibonacci(31)
-#fib = Fibonacci(37)
-#fib = Fibonacci(41)
-#fib = Fibonacci(43) # prime
-#fib = Fibonacci(71)
-#fib = Fibonacci(83) # prime
-#fib = Fibonacci(89)
-#fib = Fibonacci(97)
-fib = Fibonacci(101) # large prime factors
-#fib = Fibonacci(103)
-#fib = Fibonacci(107)
-#fib = Fibonacci(109) # large prime factors
-#fib = Fibonacci(113) # very large prime factor
-#fib = Fibonacci(119) # exception
-#fib = Fibonacci(127) # very large prime factor
+# test
+large_prime_factor = [43, 83, 97, 101, 109, 113, 127] # these indices have a large prime factor
+least_prime_factor = [227, 503, 907, 1009, 1013, 1019] # prime_factorisation() may be slow for these indices
 
-# prime_factorisation() may be slow for the following
-#fib = Fibonacci(227)
-#fib = Fibonacci(503)
-#fib = Fibonacci(907)
-#fib = Fibonacci(1009)
-#fib = Fibonacci(1013)
-#fib = Fibonacci(1019)
-#fib = Fibonacci(1319)
+print("Prime Factorisation:")
+for index in large_prime_factor:
+    fib = Fibonacci(index)
+    print(fib, "->", fib.prime_factorisation())
 
-print(fib.least_prime_factor())
-print(fib.prime_factorisation())
+print("Least Prime Factor:")
+for index in least_prime_factor :
+    fib = Fibonacci(index)
+    print(fib, "->", fib.least_prime_factor())

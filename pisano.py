@@ -7,9 +7,9 @@ def pisano(n):
     d = ppf(n)
     
     if len(d) == 1: # n is a prime power
-        # compute k(n)
+        k = 2 # k(n)
         pre, cur = 1, 1
-        k = 2
+
         while cur != 0:
             pre, cur = cur % n, (pre + cur) % n
             k += 1
