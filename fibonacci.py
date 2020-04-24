@@ -75,7 +75,7 @@ class Fibonacci:
 
 
     @staticmethod
-    def pisano(n):
+    def period(n):
         """Return the length of the Pisano period modulo n."""
         if n < 2:
             return 1
@@ -108,7 +108,7 @@ class Fibonacci:
             else:
                 return 4 * k * q
 
-        return nt.lcm(list(map(Fibonacci.pisano, map(pow, d.keys(), d.values()))))
+        return nt.lcm(list(map(Fibonacci.period, map(pow, d.keys(), d.values()))))
 
 
 
@@ -131,14 +131,14 @@ for index in ppf_test:
     fib = Fibonacci(index)
     print(Fibonacci.ppf.__name__, LPAR, fib, RPAR, EQ, fib.ppf(), sep = "")
 
-# pisano test
+# period test
 n = 1284000
 d = nt.ppf(n)
 print(nt.ppf.__name__, LPAR, n, RPAR, EQ, d, sep = "")
 for prime, power in d.items():
     prime_power = pow(prime, power)
-    print(Fibonacci.pisano.__name__, LPAR, prime, RPAR, EQ, Fibonacci.pisano(prime), sep = "")
+    print(Fibonacci.period.__name__, LPAR, prime, RPAR, EQ, Fibonacci.period(prime), sep = "")
     if prime_power != prime:
-        print(Fibonacci.pisano.__name__, LPAR, prime_power, RPAR, EQ, Fibonacci.pisano(prime_power), sep = "")
+        print(Fibonacci.period.__name__, LPAR, prime_power, RPAR, EQ, Fibonacci.period(prime_power), sep = "")
 
-print(Fibonacci.pisano.__name__, LPAR, n, RPAR, EQ, Fibonacci.pisano(n), sep = "")
+print(Fibonacci.period.__name__, LPAR, n, RPAR, EQ, Fibonacci.period(n), sep = "")

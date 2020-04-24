@@ -12,7 +12,7 @@ This module contains some standard number-theoretic functions.
 Fibonacci numbers with composite index greater than 4 are composite [[1]](#1). The converse however is false. `lpf` and `ppf` respectively return the least prime factor and the prime factorisation (slow for large index) of Fibonacci numbers with prime index [[2]](#2).
 
 ### Pisano Period
-The Fibonacci sequence modulo `n` is periodic [[1]](#1). The period is known as the *Pisano period*. `pisano` returns the length of the Pisano period modulo `n` [[3]](#3).
+The Fibonacci sequence modulo `n` is periodic [[1]](#1). The period is known as the *Pisano period*. `period` returns the length of the Pisano period modulo `n` [[3]](#3).
 
 ## References
 
