@@ -1,10 +1,12 @@
 import nt 
 
 class Fibonacci:
+    """A class to represent a Fibonacci number with prime index."""
+    
     def __init__(self, index):
-        """Create a Fibonacci object with prime index."""
+        """Create a Fibonacci object if index is prime, raise Exception otherwise."""
         if not nt.is_prime(index):
-            raise Exception(" ".join(["index", str(index), "is not prime"]))
+            raise Exception(f"index {str(index)} is not prime")
 
         self._index = index
         prev, self._value = 1, 1
@@ -14,11 +16,11 @@ class Fibonacci:
 
 
     def __str__(self):
-        return "".join([self.__class__.__name__, "(", str(self._index), ")"])
+        return f"{self.__class__.__name__}({str(self._index)})"
 
 
     def lpf(self):
-        """Return the least prime factor of self._value."""
+        """Return the least prime factor of self."""
         p = self._index
 
         if p > 2:
@@ -39,39 +41,39 @@ class Fibonacci:
 
 
     def ppf(self):
-        """Return the prime power factorisation of self._value."""
+        """Return the prime power factorisation of self."""
+        d = {}
         p = self._index
-        ppf = {}
 
         if p > 2:
-            lpf = self.lpf()
-            ppf[lpf] = ppf.get(lpf, 0) + 1
-            quo = self._value // lpf
+            pr0 = self.lpf()
+            d[pr0] = 1
+            quo = self._value // pr0
             dif = 4 * p
 
-            if lpf % p == 1:            # lpf is of the form 4tp + 1
-                pr1 = lpf
-                pr2 = lpf + 2*p - 2
-            else:                       # lpf is of the form (4t - 2)p - 1
-                pr1 = lpf + 2*p + 2
-                pr2 = lpf
+            if pr0 % p == 1:	# lpf is of the form 4tp + 1
+                pr1 = pr0
+                pr2 = pr0 + 2*p - 2
+            else:		# lpf is of the form (4t - 2)p - 1
+                pr1 = pr0 + 2*p + 2
+                pr2 = pr0
 
             if p > 5:
                 while pr1 * pr1 <= quo or pr2 * pr2 <= quo:
                     if ((pr2 % 10 == 3) or (pr2 % 10 == 7)) and quo % pr2 == 0:
-                        ppf[pr2] = ppf.get(pr2, 0) + 1
+                        d[pr2] = d.get(pr2, 0) + 1
                         quo //= pr2
                     elif ((pr1 % 10 == 1) or (pr1 % 10 == 9)) and quo % pr1 == 0:
-                        ppf[pr1] = ppf.get(pr1, 0) + 1
+                        d[pr1] = d.get(pr1, 0) + 1
                         quo //= pr1
                     else:
                         pr1 += dif
                         pr2 += dif
 
-                if quo > 1:             # quo is prime
-                    ppf[quo] = ppf.get(quo, 0) + 1
+                if quo > 1:	# quo is prime
+                    d[quo] = d.get(quo, 0) + 1
 
-        return ppf
+        return d
 
 
     @staticmethod
@@ -82,26 +84,26 @@ class Fibonacci:
     
         d = nt.ppf(n)
     
-        if len(d) == 1:   # n is a prime power
+        if len(d) == 1:		# n is a prime power
             p = list(d)[0]
-            e = d[p]      # n = p^e
-            k = 2         # k(p)
+            e = d[p]		# n = p^e
+            k = 2		# k(p)
             pre, cur = 1, 1
 
             while cur % p != 0:
                 pre, cur = cur, pre + cur
                 k += 1
 
-            r = 0         # p^r || F_{k(p)}
+            r = 0		# p^r || F_{k(p)}
             while cur % p == 0:
                 cur //= p
                 r += 1
 
-            q = n         # q = p^{e-r}
+            q = n		# q = p^{e-r}
             for i in range(r):
                 q //= p
 
-            if pre == 1:  # k(p^e) = p^{e-r} * k(p), pi(n) = {1,2,4} * k(n)
+            if pre == 1:	# k(p^e) = p^{e-r} * k(p), pi(n) = {1,2,4} * k(n)
                 return k * q
             elif k % 2 == 0:
                 return 2 * k * q
@@ -111,34 +113,34 @@ class Fibonacci:
         return nt.lcm(list(map(Fibonacci.period, map(pow, d.keys(), d.values()))))
 
 
-
-# constants for print
-LPAR = "("
-RPAR = ")"
-EQ = " = "
+def print_fun(fun, arg, val=None):
+    """Print "fun(arg) = val" if val != None, and "fun(arg) = [value of fun at arg]" otherwise."""
+    if val is None:
+        print(fun.__name__, "(", arg, ")", " = ", fun(arg), sep = "")
+    else:
+        print(fun.__name__, "(", arg, ")", " = ", val, sep = "")
 
 # lpf test
 lpf_test = [227, 503, 907, 1009, 1013, 1019] # ppf may be slow for these indices
 
 for index in lpf_test:
-    fib = Fibonacci(index)
-    print(Fibonacci.lpf.__name__, LPAR, fib, RPAR, EQ, fib.lpf(), sep = "")
+    print_fun(Fibonacci.lpf, Fibonacci(index))
 
 # ppf test
 ppf_test = [43, 83, 97, 101, 109, 113, 127]
 
 for index in ppf_test:
-    fib = Fibonacci(index)
-    print(Fibonacci.ppf.__name__, LPAR, fib, RPAR, EQ, fib.ppf(), sep = "")
+    print_fun(Fibonacci.ppf, Fibonacci(index))
 
 # period test
 n = 1284000
 d = nt.ppf(n)
-print(nt.ppf.__name__, LPAR, n, RPAR, EQ, d, sep = "")
+print_fun(nt.ppf, n, d)
+
 for prime, power in d.items():
     prime_power = pow(prime, power)
-    print(Fibonacci.period.__name__, LPAR, prime, RPAR, EQ, Fibonacci.period(prime), sep = "")
+    print_fun(Fibonacci.period, prime)
     if prime_power != prime:
-        print(Fibonacci.period.__name__, LPAR, prime_power, RPAR, EQ, Fibonacci.period(prime_power), sep = "")
+        print_fun(Fibonacci.period, prime_power)
 
-print(Fibonacci.period.__name__, LPAR, n, RPAR, EQ, Fibonacci.period(n), sep = "")
+print_fun(Fibonacci.period, n)

@@ -1,4 +1,4 @@
-# number theory module
+"""Number Theory Module"""
 
 def is_prime(p):
     if p < 2:
