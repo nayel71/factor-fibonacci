@@ -1,6 +1,7 @@
 """Number Theory Module"""
 
 def is_prime(p):
+    """What the name says: check if p is prime."""
     if p < 2:
         return False
 

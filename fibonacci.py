@@ -6,7 +6,7 @@ class Fibonacci:
     def __init__(self, index):
         """Create a Fibonacci object if index is prime, raise Exception otherwise."""
         if not nt.is_prime(index):
-            raise Exception(f"index {str(index)} is not prime")
+            raise Exception(f"index {index} is not prime")
 
         self._index = index
         prev, self._value = 1, 1
@@ -16,7 +16,7 @@ class Fibonacci:
 
 
     def __str__(self):
-        return f"{self.__class__.__name__}({str(self._index)})"
+        return f"{self.__class__.__name__}({self._index})"
 
 
     def lpf(self):
@@ -113,34 +113,35 @@ class Fibonacci:
         return nt.lcm(list(map(Fibonacci.period, map(pow, d.keys(), d.values()))))
 
 
-def print_fun(fun, arg, val=None):
-    """Print "fun(arg) = val" if val != None, and "fun(arg) = [value of fun at arg]" otherwise."""
-    if val is None:
-        print(fun.__name__, "(", arg, ")", " = ", fun(arg), sep = "")
-    else:
-        print(fun.__name__, "(", arg, ")", " = ", val, sep = "")
+if __name__ == "__main__":
+    def print_fun(fun, arg, val=None):
+        """Print "fun(arg) = val" if val != None, and "fun(arg) = [value of fun at arg]" otherwise."""
+        if val is None:
+            print(fun.__name__, "(", arg, ")", " = ", fun(arg), sep = "")
+        else:
+            print(fun.__name__, "(", arg, ")", " = ", val, sep = "")
 
-# lpf test
-lpf_test = [227, 503, 907, 1009, 1013, 1019] # ppf may be slow for these indices
+    # lpf test
+    lpf_test = [227, 503, 907, 1009, 1013, 1019] # ppf may be slow for these indices
 
-for index in lpf_test:
-    print_fun(Fibonacci.lpf, Fibonacci(index))
+    for index in lpf_test:
+        print_fun(Fibonacci.lpf, Fibonacci(index))
 
-# ppf test
-ppf_test = [43, 83, 97, 101, 109, 113, 127]
+    # ppf test
+    ppf_test = [43, 83, 97, 101, 109, 113, 127]
 
-for index in ppf_test:
-    print_fun(Fibonacci.ppf, Fibonacci(index))
+    for index in ppf_test:
+        print_fun(Fibonacci.ppf, Fibonacci(index))
 
-# period test
-n = 1284000
-d = nt.ppf(n)
-print_fun(nt.ppf, n, d)
+    # period test
+    n = 1284000
+    d = nt.ppf(n)
+    print_fun(nt.ppf, n, d)
 
-for prime, power in d.items():
-    prime_power = pow(prime, power)
-    print_fun(Fibonacci.period, prime)
-    if prime_power != prime:
-        print_fun(Fibonacci.period, prime_power)
+    for prime, power in d.items():
+        prime_power = pow(prime, power)
+        print_fun(Fibonacci.period, prime)
+        if prime_power != prime:
+            print_fun(Fibonacci.period, prime_power)
 
-print_fun(Fibonacci.period, n)
+    print_fun(Fibonacci.period, n)
