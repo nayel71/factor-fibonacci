@@ -29,7 +29,7 @@ def __gcd2(a, b):
 def __gcd(arr):
     """Return the GCD of the elements of arr."""
     if len(arr) == 1:
-        return arr[0]
+        return abs(arr[0])
     
     return __gcd2(__gcd(arr[:len(arr)//2]), __gcd(arr[len(arr)//2:]))
 
@@ -50,7 +50,7 @@ def __lcm2(a, b):
 def __lcm(arr):
     """Return the LCM of the elements of arr."""
     if len(arr) == 1:
-        return arr[0]
+        return abs(arr[0])
     
     return __lcm2(__lcm(arr[:len(arr)//2]), __lcm(arr[len(arr)//2:]))
 
@@ -82,5 +82,5 @@ def ppf(n):
 
 if __name__ == "__main__":
     print(gcd(48, 8, 500, 72), lcm(48, 8, 500, 72))
-    t = ()#1, 2, 3, 4, 5, 6)
-    print(lcm(*t))
+    t = (1, -2, 3, 4, 5, 6)
+    print(gcd(*t), lcm(*t))
