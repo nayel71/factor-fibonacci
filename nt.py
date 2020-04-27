@@ -20,8 +20,8 @@ def __gcd2(a, b):
     if a < b:
         return __gcd2(b, a)
     
-    if a % b == 0:
-        return b
+    if b == 0:
+        return a
     
     return __gcd2(b, a % b)
 
@@ -82,5 +82,5 @@ def ppf(n):
 
 if __name__ == "__main__":
     print(gcd(48, 8, 500, 72), lcm(48, 8, 500, 72))
-    t = (1, -2, 3, 4, 5, 6)
+    t = (0, -2, 4, 6)
     print(gcd(*t), lcm(*t))
