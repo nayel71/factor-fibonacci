@@ -86,20 +86,14 @@ def ppf(n):
     return d
 
 
+# test
 if __name__ == "__main__":
-    print(gcd(48, 8, 500, 72), lcm(48, 8, 500, 72))
-    t = [0, -2, 4, 6]
-    print(*t, "-> gcd =", gcd(*t), "lcm =", lcm(*t))
-    del t[2:]
-    print(*t, "-> gcd =", gcd(*t), "lcm =", lcm(*t))
-    del t[1]
-    print(*t, "-> gcd =", gcd(*t), "lcm =", lcm(*t))
-    t = [0, 0]
-    print(*t, "-> gcd =", gcd(*t), "lcm =", lcm(*t))
+    tests = [[48, 8, 500, 72], [0, -4, 6], [-2, 0], [0, 0], [-1312, -1558]]
+    for t in tests:
+        print(f"gcd{t} = {gcd(*t)}, lcm{t} = {lcm(*t)}")
+
     t = range(1, 10)
     l = lcm(*t)
-    print(f"lcm of {t} =", l)
     d = ppf(l)
-    print(1)
-    for p in d:
-        print("*", p, "^", d[p], sep="")
+
+    print(f"lcm({t}) = {lcm(*t)} = {ppf(l)}")

@@ -113,6 +113,7 @@ class Fibonacci:
         return nt.lcm(*map(Fibonacci.period, map(pow, d.keys(), d.values())))
 
 
+# test
 if __name__ == "__main__":
     def print_fun(fun, arg, val=None):
         """Print "fun(arg) = val" if val != None, and "fun(arg) = [value of fun at arg]" otherwise."""
@@ -121,19 +122,19 @@ if __name__ == "__main__":
         else:
             print(fun.__name__, "(", arg, ")", " = ", val, sep = "")
 
-    # lpf test
+    # lpf
     lpf_test = [227, 503, 907, 1009, 1013, 1019] # ppf may be slow for these indices
 
     for index in lpf_test:
         print_fun(Fibonacci.lpf, Fibonacci(index))
 
-    # ppf test
+    # ppf
     ppf_test = [43, 83, 97, 101, 109, 113, 127]
 
     for index in ppf_test:
         print_fun(Fibonacci.ppf, Fibonacci(index))
 
-    # period test
+    # period
     n = 1284000
     d = nt.ppf(n)
     print_fun(nt.ppf, n, d)
