@@ -44,6 +44,12 @@ def gcd(*args):
 
 def __lcm2(a, b):
     """Return the LCM of a and b."""
+    if a == 0:
+        return b
+
+    if b == 0:
+        return a
+
     return a*b // __gcd2(a, b)
 
 
@@ -82,5 +88,9 @@ def ppf(n):
 
 if __name__ == "__main__":
     print(gcd(48, 8, 500, 72), lcm(48, 8, 500, 72))
-    t = (0, -2, 4, 6)
-    print(gcd(*t), lcm(*t))
+    t = [0, -2, 4, 6]
+    print(*t, "-> gcd =", gcd(*t), "lcm =", lcm(*t))
+    del t[0]
+    print(*t, "-> gcd =", gcd(*t), "lcm =", lcm(*t))
+    t = [0, 0]
+    print(*t, "-> gcd =", gcd(*t), "lcm =", lcm(*t))
