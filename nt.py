@@ -48,7 +48,7 @@ def __lcm2(a, b):
         return __lcm2(b, a)
 
     if b == 0:
-        return a
+        return 0
 
     return a*b // __gcd2(a, b)
 
@@ -96,3 +96,10 @@ if __name__ == "__main__":
     print(*t, "-> gcd =", gcd(*t), "lcm =", lcm(*t))
     t = [0, 0]
     print(*t, "-> gcd =", gcd(*t), "lcm =", lcm(*t))
+    t = range(1, 10)
+    l = lcm(*t)
+    print(f"lcm of {t} =", l)
+    d = ppf(l)
+    print(1)
+    for p in d:
+        print("*", p, "^", d[p], sep="")
