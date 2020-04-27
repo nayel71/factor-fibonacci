@@ -93,4 +93,5 @@ if __name__ == "__main__":
         print(f"gcd{t} = {gcd(*t)}, lcm{t} = {lcm(*t)}")
 
     t = range(1, 10)
-    print(f"lcm({t}) = {lcm(*t)} = {ppf(l)}")
+    l = lcm(*t)
+    print(f"lcm({t}) = {l} = {ppf(l)}")
