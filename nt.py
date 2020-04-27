@@ -15,34 +15,52 @@ def is_prime(p):
     return True
 
 
-def __gcd(a, b):
+def __gcd2(a, b):
+    """Return the GCD of a and b."""
     if a < b:
-        return __gcd(b, a)
+        return __gcd2(b, a)
     
     if a % b == 0:
         return b
     
-    return __gcd(b, a % b)
+    return __gcd2(b, a % b)
 
 
-def gcd(arr):
+def __gcd(arr):
     """Return the GCD of the elements of arr."""
     if len(arr) == 1:
         return arr[0]
     
-    return __gcd(gcd(arr[:len(arr)//2]), gcd(arr[len(arr)//2:]))
+    return __gcd2(__gcd(arr[:len(arr)//2]), __gcd(arr[len(arr)//2:]))
 
 
-def __lcm(a, b):
-    return a*b // __gcd(a, b)
+def gcd(*args):
+    """Return the GCD of args."""
+    if not args:
+        raise Exception("no arguments")
+
+    return __gcd(args)
 
 
-def lcm(arr):
+def __lcm2(a, b):
+    """Return the LCM of a and b."""
+    return a*b // __gcd2(a, b)
+
+
+def __lcm(arr):
     """Return the LCM of the elements of arr."""
     if len(arr) == 1:
         return arr[0]
     
-    return __lcm(lcm(arr[:len(arr)//2]), lcm(arr[len(arr)//2:]))
+    return __lcm2(__lcm(arr[:len(arr)//2]), __lcm(arr[len(arr)//2:]))
+
+
+def lcm(*args):
+    """Return the LCM of args."""
+    if not args:
+        raise Exception("no arguments")
+
+    return __lcm(args)
 
 
 def ppf(n):
@@ -60,3 +78,9 @@ def ppf(n):
             p += 1
 
     return d
+
+
+if __name__ == "__main__":
+    print(gcd(48, 8, 500, 72), lcm(48, 8, 500, 72))
+    t = ()#1, 2, 3, 4, 5, 6)
+    print(lcm(*t))

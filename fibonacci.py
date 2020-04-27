@@ -85,7 +85,7 @@ class Fibonacci:
         d = nt.ppf(n)
     
         if len(d) == 1:		# n is a prime power
-            p = list(d)[0]
+            p = tuple(d)[0]
             e = d[p]		# n = p^e
             k = 2		# k(p)
             pre, cur = 1, 1
@@ -110,7 +110,7 @@ class Fibonacci:
             else:
                 return 4 * k * q
 
-        return nt.lcm(list(map(Fibonacci.period, map(pow, d.keys(), d.values()))))
+        return nt.lcm(*map(Fibonacci.period, map(pow, d.keys(), d.values())))
 
 
 if __name__ == "__main__":
