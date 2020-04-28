@@ -94,4 +94,4 @@ if __name__ == "__main__":
 
     t = range(1, 10)
     l = lcm(*t)
-    print(f"lcm({t}) = {l} = {ppf(l)}")
+    print(f"lcm({t}) = {l}\nppf({l}) = {ppf(l)}")
