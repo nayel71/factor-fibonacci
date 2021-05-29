@@ -4,9 +4,9 @@ class Fibonacci:
     """A class to represent a Fibonacci number with prime index."""
     
     def __init__(self, index):
-        """Create a Fibonacci object if index is prime, raise Exception otherwise."""
+        """Create a Fibonacci object if index is prime, raise exception otherwise."""
         if not nt.is_prime(index):
-            raise Exception(f"index {index} is not prime")
+            raise IndexError(f"index {index} is not prime")
 
         self._index = index
         prev, self._value = 1, 1
