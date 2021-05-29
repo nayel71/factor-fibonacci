@@ -118,9 +118,9 @@ if __name__ == "__main__":
     def print_fun(fun, arg, val=None):
         """Print "fun(arg) = val" if val != None, and "fun(arg) = [value of fun at arg]" otherwise."""
         if val is None:
-            print(fun.__name__, "(", arg, ")", " = ", fun(arg), sep = "")
+            print(fun.__name__, "(", arg, ")", " = ", fun(arg), sep="")
         else:
-            print(fun.__name__, "(", arg, ")", " = ", val, sep = "")
+            print(fun.__name__, "(", arg, ")", " = ", val, sep="")
 
     # lpf
     lpf_test = [227, 503, 907, 1009, 1013, 1019] # ppf may be slow for these indices

@@ -37,7 +37,7 @@ def __gcd(arr):
 def gcd(*args):
     """Return the GCD of args."""
     if not args:
-        raise Exception("no arguments")
+        raise ValueError("no arguments")
 
     return __gcd(args)
 
@@ -64,7 +64,7 @@ def __lcm(arr):
 def lcm(*args):
     """Return the LCM of args."""
     if not args:
-        raise Exception("no arguments")
+        raise ValueError("no arguments")
 
     return __lcm(args)
 
