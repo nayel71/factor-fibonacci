@@ -81,7 +81,7 @@ def ppf(n):
                 n //= p
                 d[p] += 1
         else:
-            p += 1
+            p += 1 + p%2
 
     return d
 

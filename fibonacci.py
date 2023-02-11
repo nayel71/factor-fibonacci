@@ -1,23 +1,22 @@
 import nt 
+from quadratic_integer import QuadraticIntegerRing, QuadraticInteger
 
-class Fibonacci:
+
+class FibonacciPrime:
     """A class to represent a Fibonacci number with prime index."""
     
     def __init__(self, index):
-        """Create a Fibonacci object if index is prime, raise exception otherwise."""
+        """Create object if index is prime, raise exception otherwise."""
         if not nt.is_prime(index):
             raise IndexError(f"index {index} is not prime")
 
         self._index = index
-        prev, self._value = 1, 1
-
-        for i in range(2, index):
-            prev, self._value = self._value, prev + self._value
-
+        z_phi = QuadraticIntegerRing(1, -1, "phi")
+        phi = QuadraticInteger(z_phi, 0, 1)
+        self._value = (phi**index)._i
 
     def __str__(self):
         return f"{self.__class__.__name__}({self._index})"
-
 
     def lpf(self):
         """Return the least prime factor of self."""
@@ -39,7 +38,6 @@ class Fibonacci:
 
             return self._value
 
-
     def ppf(self):
         """Return the prime power factorisation of self."""
         d = {}
@@ -51,10 +49,10 @@ class Fibonacci:
             quo = self._value // pr0
             dif = 4 * p
 
-            if pr0 % p == 1:	# lpf is of the form 4tp + 1
+            if pr0 % p == 1:  # lpf is of the form 4tp + 1
                 pr1 = pr0
                 pr2 = pr0 + 2*p - 2
-            else:		# lpf is of the form (4t - 2)p - 1
+            else:  # lpf is of the form (4t - 2)p - 1
                 pr1 = pr0 + 2*p + 2
                 pr2 = pr0
 
@@ -70,53 +68,55 @@ class Fibonacci:
                         pr1 += dif
                         pr2 += dif
 
-                if quo > 1:	# quo is prime
+                if quo > 1:  # quo is prime
                     d[quo] = d.get(quo, 0) + 1
 
         return d
 
 
-    @staticmethod
-    def period(n):
-        """Return the length of the Pisano period modulo n."""
-        if n < 2:
-            return 1
-    
-        d = nt.ppf(n)
-    
-        if len(d) == 1:		# n is a prime power
-            p = tuple(d)[0]
-            e = d[p]		# n = p^e
-            k = 2		# k(p)
-            pre, cur = 1, 1
+def pisano_period(n):
+    """Return the length of the Pisano period modulo n."""
+    if n < 2:
+        return 1
 
-            while cur % p != 0:
-                pre, cur = cur, pre + cur
-                k += 1
+    d = nt.ppf(n)
 
-            r = 0		# p^r || F_{k(p)}
-            while cur % p == 0:
-                cur //= p
-                r += 1
+    if len(d) == 1:  # n is a prime power
+        p = tuple(d)[0]
+        e = d[p]  # n = p^e
+        k = 2  # k(p)
+        pre, cur = 1, 1
 
-            q = n		# q = p^{e-r}
-            for i in range(r):
-                q //= p
+        while cur % p != 0:
+            pre, cur = cur, pre + cur
+            k += 1
 
-            if pre == 1:	# k(p^e) = p^{e-r} * k(p), pi(n) = {1,2,4} * k(n)
-                return k * q
-            elif k % 2 == 0:
-                return 2 * k * q
-            else:
-                return 4 * k * q
+        r = 0  # p^r || F_{k(p)}
+        while cur % p == 0:
+            cur //= p
+            r += 1
 
-        return nt.lcm(*map(Fibonacci.period, map(pow, d.keys(), d.values())))
+        q = n  # q = p^{e-r}
+        for i in range(r):
+            q //= p
+
+        if pre == 1:  # k(p^e) = p^{e-r} * k(p), pi(n) = {1,2,4} * k(n)
+            return k * q
+        elif k % 2 == 0:
+            return 2 * k * q
+        else:
+            return 4 * k * q
+
+    return nt.lcm(*map(pisano_period, map(pow, d.keys(), d.values())))
 
 
 # test
 if __name__ == "__main__":
     def print_fun(fun, arg, val=None):
-        """Print "fun(arg) = val" if val != None, and "fun(arg) = [value of fun at arg]" otherwise."""
+        """Print 
+        "fun(arg) = val" if val != None, and 
+        "fun(arg) = [value of fun at arg]" otherwise.
+        """
         if val is None:
             print(fun.__name__, "(", arg, ")", " = ", fun(arg), sep="")
         else:
@@ -126,13 +126,13 @@ if __name__ == "__main__":
     lpf_test = [227, 503, 907, 1009, 1013, 1019] # ppf may be slow for these indices
 
     for index in lpf_test:
-        print_fun(Fibonacci.lpf, Fibonacci(index))
+        print_fun(FibonacciPrime.lpf, FibonacciPrime(index))
 
     # ppf
     ppf_test = [43, 83, 97, 101, 109, 113, 127]
 
     for index in ppf_test:
-        print_fun(Fibonacci.ppf, Fibonacci(index))
+        print_fun(FibonacciPrime.ppf, FibonacciPrime(index))
 
     # period
     n = 1284000
@@ -141,8 +141,8 @@ if __name__ == "__main__":
 
     for prime, power in d.items():
         prime_power = pow(prime, power)
-        print_fun(Fibonacci.period, prime)
+        print_fun(pisano_period, prime)
         if prime_power != prime:
-            print_fun(Fibonacci.period, prime_power)
+            print_fun(pisano_period, prime_power)
 
-    print_fun(Fibonacci.period, n)
+    print_fun(pisano_period, n)
