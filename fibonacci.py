@@ -13,7 +13,7 @@ class FibonacciPrime:
         self._index = index
         z_phi = QuadraticIntegerRing(1, -1, "phi")
         phi = QuadraticInteger(z_phi, 0, 1)
-        self._value = (phi**index)._i
+        self._value = int(phi**(index+1))
 
     def __str__(self):
         return f"{self.__class__.__name__}({self._index})"
