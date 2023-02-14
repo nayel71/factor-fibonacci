@@ -5,12 +5,14 @@ def is_prime(p):
     if p < 2:
         return False
 
-    d = 2
+    if not p & 1:
+        return False
+
+    d = 3
     while d * d <= p:
         if p % d == 0:
             return False
-
-        d += 1 + d%2
+        d += 2
 
     return True
 
@@ -72,8 +74,14 @@ def lcm(*args):
 def ppf(n):
     """Return the prime power factorisation of n."""
     d = {}
-    p = 2
     
+    if not n & 1:
+        d[2] = 0
+        while not n & 1:
+            n //= 2
+            d[2] += 1
+
+    p = 3
     while n > 1:
         if n % p == 0:
             d[p] = 0
@@ -81,7 +89,7 @@ def ppf(n):
                 n //= p
                 d[p] += 1
         else:
-            p += 1 + p%2
+            p += 2
 
     return d
 
