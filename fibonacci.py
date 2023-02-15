@@ -6,7 +6,7 @@ class Fibonacci:
     """A class to represent a Fibonacci number."""
 
     def __init__(self, index):
-        """Create object representing Fibonacci number corresponding to index."""
+        """Create Fibonacci number corresponding to index."""
         self._index = index
         z_phi = QuadraticIntegerRing(1, -1, "phi")
         phi = QuadraticInteger(z_phi, 0, 1)
@@ -14,6 +14,98 @@ class Fibonacci:
 
     def __str__(self):
         return f"Fibonacci({self._index})"
+
+    def characteristic_factors(self):
+        """Return the characteristic factors of self."""
+        ppf = nt.ppf(self._index)
+        char_factor = self._value
+
+        if self._index in (6, 12):  # Carmichael's theorem
+            return {}
+        if len(ppf) == 1:  # index is a prime power
+            for prime, power in ppf.items():
+                char_factor //= Fibonacci(prime**(power-1))
+        else: 
+            for prime, power in ppf.items():
+                char_factor //= Fibonacci(prime**power)
+
+        return nt.ppf(char_factor)
+
+    def __neg__(self):
+        """Return -self."""
+        return -self._value
+
+    def __add__(self, other):
+        """Return self + other."""
+        if isinstance(other, int):
+            return self._value + other
+        if isinstance(other, Fibonacci):
+            return self._value + other._value
+        return NotImplemented
+
+    def __sub__(self, other):
+        """Return self - other."""
+        return self + -other
+
+    def __mul__(self, other):
+        """Return self * other."""
+        if isinstance(other, int):
+            return self._value * other
+        if isinstance(other, Fibonacci):
+            return self._value * other._value
+        return NotImplemented
+
+    def __floordiv__(self, other):
+        """Return self // other."""
+        if isinstance(other, int):
+            return self._value // other
+        if isinstance(other, Fibonacci):
+            return self._value // other._value
+        return NotImplemented
+
+    def __eq__(self, other):
+        """Return self == other."""
+        if isinstance(other, int):
+            return self._value == other
+        if isinstance(other, Fibonacci):
+            return self._index == other._index
+        return NotImplemented
+
+    def __radd__(self, other):
+        """Return other + self."""
+        return self + other
+
+    def __rsub__(self, other):
+        """Return other - self."""
+        return -self + other
+
+    def __rmul__(self, other):
+        """Return other * self."""
+        return self * other
+
+    def __rfloordiv__(self, other):
+        """Return other // self."""
+        if isinstance(other, int):
+            return other // self._value
+        if isinstance(other, Fibonacci):
+            return other._value // self._value
+        return NotImplemented
+
+
+    def __req__(self, other):
+        """Return other == self."""
+        return self == other
+
+    def __pow__(self, other):
+        """Return self**other."""
+        if isinstance(other, int) and other >= 0:
+            if other == 0:
+                return 1
+            if other % 2 == 0:
+                sqrt = self**(other//2)
+                return sqrt * sqrt
+            return self * self**(other-1)
+        return NotImplemented
 
 
 class FibonacciPrime(Fibonacci):
