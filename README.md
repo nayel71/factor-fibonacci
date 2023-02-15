@@ -11,7 +11,7 @@ This module contains some standard number-theoretic functions.
 This module contains the `Fibonacci` class resresenting a Fibonacci number with a given index, and the `FibonacciPrime` class, which represents a Fibonacci number with a given prime index. It makes use of the `quadratic_integer` [[4]](#4) module to fast compute Fibonacci numbers. It also contains a function `pisano_period` to compute the Pisano period (see below).
 
 ### Prime Factors
-Fibonacci numbers with composite index greater than 4 are composite [[1]](#1). The converse however is false. The `FibonacciPrime.lpf()` and `FibonacciPrime.ppf()` methods respectively return the least prime factor and the prime power factorisation (slow for large index) of a given Fibonacci number with prime index [[2]](#2).
+Fibonacci numbers with composite index greater than 4 are composite [[1]](#1). The converse however is false. The `FibonacciPrime.lpf()` and `FibonacciPrime.ppf()` methods respectively return the least prime factor and the prime power factorisation (slow for large index) of a given Fibonacci number with prime index [[2]](#2). In addition, the `Fibonacci.characteristic_factors()` method returns the [characteristic factors](https://en.wikipedia.org/wiki/Fibonacci_number#Prime_divisors) of a Fibonacci number.
 
 ### Pisano Period
 The Fibonacci sequence modulo `n` is periodic [[1]](#1). The period is known as the *Pisano period*. `pisano_period(n)` returns the length of the Pisano period modulo `n`. [[3]](#3).
