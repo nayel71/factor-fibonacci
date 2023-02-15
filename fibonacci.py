@@ -2,7 +2,21 @@ import nt
 from quadratic_integer import QuadraticIntegerRing, QuadraticInteger
 
 
-class FibonacciPrime:
+class Fibonacci:
+    """A class to represent a Fibonacci number."""
+
+    def __init__(self, index):
+        """Create object representing Fibonacci number corresponding to index."""
+        self._index = index
+        z_phi = QuadraticIntegerRing(1, -1, "phi")
+        phi = QuadraticInteger(z_phi, 0, 1)
+        self._value = int(phi**(index+1))
+
+    def __str__(self):
+        return f"Fibonacci({self._index})"
+
+
+class FibonacciPrime(Fibonacci):
     """A class to represent a Fibonacci number with prime index."""
     
     def __init__(self, index):
@@ -10,13 +24,7 @@ class FibonacciPrime:
         if not nt.is_prime(index):
             raise IndexError(f"index {index} is not prime")
 
-        self._index = index
-        z_phi = QuadraticIntegerRing(1, -1, "phi")
-        phi = QuadraticInteger(z_phi, 0, 1)
-        self._value = int(phi**(index+1))
-
-    def __str__(self):
-        return f"{self.__class__.__name__}({self._index})"
+        super().__init__(index)
 
     def lpf(self):
         """Return the least prime factor of self."""
