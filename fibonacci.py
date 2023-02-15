@@ -146,22 +146,6 @@ class Fibonacci:
             return self * self**(other-1)
         return NotImplemented
 
-    def characteristic_factors(self):
-        """Return the characteristic factors of self."""
-        ppf = nt.ppf(self._index)
-        char_factor = self._value
-
-        if self._index in (6, 12):  # Carmichael's theorem
-            return {}
-        if len(ppf) == 1:  # index is a prime power
-            for prime, power in ppf.items():
-                char_factor //= Fibonacci(prime**(power-1))
-        else: 
-            for prime, power in ppf.items():
-                char_factor //= Fibonacci(prime**power)
-
-        return nt.ppf(char_factor)
-
 
 class FibonacciPrime(Fibonacci):
     """A class to represent a Fibonacci number with prime index."""
