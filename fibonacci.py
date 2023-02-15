@@ -15,22 +15,6 @@ class Fibonacci:
     def __str__(self):
         return f"Fibonacci({self._index})"
 
-    def characteristic_factors(self):
-        """Return the characteristic factors of self."""
-        ppf = nt.ppf(self._index)
-        char_factor = self._value
-
-        if self._index in (6, 12):  # Carmichael's theorem
-            return {}
-        if len(ppf) == 1:  # index is a prime power
-            for prime, power in ppf.items():
-                char_factor //= Fibonacci(prime**(power-1))
-        else: 
-            for prime, power in ppf.items():
-                char_factor //= Fibonacci(prime**power)
-
-        return nt.ppf(char_factor)
-
     def __neg__(self):
         """Return -self."""
         return -self._value
@@ -63,12 +47,60 @@ class Fibonacci:
             return self._value // other._value
         return NotImplemented
 
+    def __mod__(self, other):
+        """Return self % other."""
+        if isinstance(other, int):
+            return self._value % other
+        if isinstance(other, Fibonacci):
+            return self._value % other._value
+        return NotImplemented
+
     def __eq__(self, other):
         """Return self == other."""
         if isinstance(other, int):
             return self._value == other
         if isinstance(other, Fibonacci):
             return self._index == other._index
+        return NotImplemented
+
+    def __ne__(self, other):
+        """Return self != other."""
+        if isinstance(other, int):
+            return self._value != other
+        if isinstance(other, Fibonacci):
+            return self._index != other._index
+        return NotImplemented
+
+    def __lt__(self, other):
+        """Return self < other."""
+        if isinstance(other, int):
+            return self._value < other
+        if isinstance(other, Fibonacci):
+            return self._value < other._value
+        return NotImplemented
+
+    def __le__(self, other):
+        """Return self <= other."""
+        if isinstance(other, int):
+            return self._value <= other
+        if isinstance(other, Fibonacci):
+            return self._value <= other._value
+        return NotImplemented
+
+    def __gt__(self, other):
+        """Return self >= other."""
+        if isinstance(other, int):
+            return self._value > other
+        if isinstance(other, Fibonacci):
+            return self._value > other._value
+        return NotImplemented
+
+    def __ge__(self, other):
+        """Return self >= other."""
+        if isinstance(other, int):
+            return self._value >= other
+        if isinstance(other, Fibonacci):
+            return self._value >= other._value
         return NotImplemented
 
     def __radd__(self, other):
@@ -91,6 +123,13 @@ class Fibonacci:
             return other._value // self._value
         return NotImplemented
 
+    def __rmod__(self, other):
+        """Return other % self."""
+        if isinstance(other, int):
+            return other % self._value
+        if isinstance(other, Fibonacci):
+            return other._value % self._value
+        return NotImplemented
 
     def __req__(self, other):
         """Return other == self."""
@@ -106,6 +145,22 @@ class Fibonacci:
                 return sqrt * sqrt
             return self * self**(other-1)
         return NotImplemented
+
+    def characteristic_factors(self):
+        """Return the characteristic factors of self."""
+        ppf = nt.ppf(self._index)
+        char_factor = self._value
+
+        if self._index in (6, 12):  # Carmichael's theorem
+            return {}
+        if len(ppf) == 1:  # index is a prime power
+            for prime, power in ppf.items():
+                char_factor //= Fibonacci(prime**(power-1))
+        else: 
+            for prime, power in ppf.items():
+                char_factor //= Fibonacci(prime**power)
+
+        return nt.ppf(char_factor)
 
 
 class FibonacciPrime(Fibonacci):
