@@ -136,7 +136,7 @@ class Fibonacci:
         return NotImplemented
 
     def __gt__(self, other):
-        """Return self >= other."""
+        """Return self > other."""
         return other < self
 
     def __le__(self, other):
