@@ -15,29 +15,68 @@ class Fibonacci:
     def __str__(self):
         return f"Fibonacci({self._index})"
 
+    def __repr__(self):
+        return str(self._value)
+
     def __neg__(self):
         """Return -self."""
         return -self._value
 
     def __add__(self, other):
         """Return self + other."""
-        if isinstance(other, int):
+        if isinstance(other, int) or isinstance(other, float):
             return self._value + other
         if isinstance(other, Fibonacci):
             return self._value + other._value
         return NotImplemented
 
+    def __radd__(self, other):
+        """Return other + self."""
+        return self + other
+
     def __sub__(self, other):
         """Return self - other."""
         return self + -other
 
+    def __rsub__(self, other):
+        """Return other - self."""
+        return -self + other
+
     def __mul__(self, other):
         """Return self * other."""
-        if isinstance(other, int):
+        if isinstance(other, int) or isinstance(other, float):
             return self._value * other
         if isinstance(other, Fibonacci):
             return self._value * other._value
         return NotImplemented
+
+    def __rmul__(self, other):
+        """Return other * self."""
+        return self * other
+
+    def __div__(self, other):
+        """Return self / other."""
+        if isinstance(other, int) or isinstance(other, float):
+            return self._value / other
+        if isinstance(other, Fibonacci):
+            return self._value / other._value
+        return NotImplemented
+
+    def __rdiv__(self, other):
+        """Return other / self."""
+        if isinstance(other, int) or isinstance(other, float):
+            return other / self._value
+        if isinstance(other, Fibonacci):
+            return other._value / self._value
+        return NotImplemented
+
+    def __truediv__(self, other):
+        """Return self / other."""
+        return self.__div__(other)
+
+    def __rtruediv__(self, other):
+        """Return other / self."""
+        return self.__rdiv__(other)
 
     def __floordiv__(self, other):
         """Return self // other."""
@@ -45,6 +84,14 @@ class Fibonacci:
             return self._value // other
         if isinstance(other, Fibonacci):
             return self._value // other._value
+        return NotImplemented
+
+    def __rfloordiv__(self, other):
+        """Return other // self."""
+        if isinstance(other, int):
+            return other // self._value
+        if isinstance(other, Fibonacci):
+            return other._value // self._value
         return NotImplemented
 
     def __mod__(self, other):
@@ -55,74 +102,6 @@ class Fibonacci:
             return self._value % other._value
         return NotImplemented
 
-    def __eq__(self, other):
-        """Return self == other."""
-        if isinstance(other, int):
-            return self._value == other
-        if isinstance(other, Fibonacci):
-            return self._index == other._index
-        return NotImplemented
-
-    def __ne__(self, other):
-        """Return self != other."""
-        if isinstance(other, int):
-            return self._value != other
-        if isinstance(other, Fibonacci):
-            return self._index != other._index
-        return NotImplemented
-
-    def __lt__(self, other):
-        """Return self < other."""
-        if isinstance(other, int):
-            return self._value < other
-        if isinstance(other, Fibonacci):
-            return self._value < other._value
-        return NotImplemented
-
-    def __le__(self, other):
-        """Return self <= other."""
-        if isinstance(other, int):
-            return self._value <= other
-        if isinstance(other, Fibonacci):
-            return self._value <= other._value
-        return NotImplemented
-
-    def __gt__(self, other):
-        """Return self >= other."""
-        if isinstance(other, int):
-            return self._value > other
-        if isinstance(other, Fibonacci):
-            return self._value > other._value
-        return NotImplemented
-
-    def __ge__(self, other):
-        """Return self >= other."""
-        if isinstance(other, int):
-            return self._value >= other
-        if isinstance(other, Fibonacci):
-            return self._value >= other._value
-        return NotImplemented
-
-    def __radd__(self, other):
-        """Return other + self."""
-        return self + other
-
-    def __rsub__(self, other):
-        """Return other - self."""
-        return -self + other
-
-    def __rmul__(self, other):
-        """Return other * self."""
-        return self * other
-
-    def __rfloordiv__(self, other):
-        """Return other // self."""
-        if isinstance(other, int):
-            return other // self._value
-        if isinstance(other, Fibonacci):
-            return other._value // self._value
-        return NotImplemented
-
     def __rmod__(self, other):
         """Return other % self."""
         if isinstance(other, int):
@@ -131,9 +110,46 @@ class Fibonacci:
             return other._value % self._value
         return NotImplemented
 
+
+    def __eq__(self, other):
+        """Return self == other."""
+        if isinstance(other, int) or isinstance(other, float):
+            return self._value == other
+        if isinstance(other, Fibonacci):
+            return self._index == other._index
+        return NotImplemented
+
     def __req__(self, other):
         """Return other == self."""
         return self == other
+
+    def __ne__(self, other):
+        """Return self != other."""
+        return not self == other
+
+    def __lt__(self, other):
+        """Return self < other."""
+        if isinstance(other, int) or isinstance(other, float):
+            return self._value < other
+        if isinstance(other, Fibonacci):
+            return self._value < other._value
+        return NotImplemented
+
+    def __gt__(self, other):
+        """Return self >= other."""
+        return other < self
+
+    def __le__(self, other):
+        """Return self <= other."""
+        if isinstance(other, int) or isinstance(other, float):
+            return self._value <= other
+        if isinstance(other, Fibonacci):
+            return self._value <= other._value
+        return NotImplemented
+
+    def __ge__(self, other):
+        """Return self >= other."""
+        return other <= self
 
     def __pow__(self, other):
         """Return self**other."""
@@ -167,9 +183,9 @@ class FibonacciPrime(Fibonacci):
             pr2 = 2*p - 1
 
             while pr2 * pr2 <= self._value:
-                if ((pr2 % 10 == 3) or (pr2 % 10 == 7)) and self._value % pr2 == 0:
+                if ((pr2 % 10 == 3) or (pr2 % 10 == 7)) and self % pr2 == 0:
                     return pr2
-                elif ((pr1 % 10 == 1) or (pr1 % 10 == 9)) and self._value % pr1 == 0:
+                elif ((pr1 % 10 == 1) or (pr1 % 10 == 9)) and self % pr1 == 0:
                     return pr1
                 else:
                     pr1 += dif
@@ -185,7 +201,7 @@ class FibonacciPrime(Fibonacci):
         if p > 2:
             pr0 = self.lpf()
             d[pr0] = 1
-            quo = self._value // pr0
+            quo = self // pr0
             dif = 4 * p
 
             if pr0 % p == 1:  # lpf is of the form 4tp + 1
